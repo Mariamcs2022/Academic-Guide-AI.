@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الدليل الأكاديمي | توصياتك</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='sresult.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/gra.png') }}"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header class="results-hero">
+      <span class="eyebrow"
+        ><i class="fa-solid fa-compass" aria-hidden="true"></i> دليلك
+        الأكاديمي</span
+      >
+      <h1 class="main-title">التخصصات والجامعات الأنسب لك</h1>
+      <p>
+        هذه التوصيات نقطة بداية تساعدك على استكشاف خياراتك الأكاديمية. تعرّف على
+        كل خيار وقارنه باهتماماتك ومتطلبات القبول.
+      </p>
+      <img
+        src="{{ url_for('static' , filename ='images/team3.jpg') }}"
+        alt="طلاب يتعاونون في بيئة تعليمية"
+        class="results-illustration"
+      />
+    </header>
+    <main class="results-content">
+      <div class="section-heading">
+        <span class="section-kicker">نتائج التقييم</span>
+        <h2>التوصيات المقترحة لك</h2>
+        <p>
+          استكشف التخصصات المدرجة أدناه وفكّر في مدى توافقها مع اهتماماتك
+          وأهدافك.
+        </p>
+      </div>
+
+      {% for results1 in results %}
+      <div class="college-card fade-in">
+        <div class="college-card-heading">
+          <span class="college-icon" aria-hidden="true"
+            ><i class="fa-solid fa-graduation-cap"></i
+          ></span>
+          <h3>{{ results1.college }}</h3>
+        </div>
+        <p class="majors-label">التخصصات المقترحة</p>
+        <p class="majors-list">{{ "، ".join(results1.majors) }}</p>
+        {% if results1.slug %}<a
+          class="result-college-link"
+          href="{{ url_for('college_details', slug=results1.slug) }}"
+          >تعرّف على الكلية
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a
+        >{% endif %}
+      </div>
+      {% endfor %}
+      <section class="feedback" aria-labelledby="feedback-title">
+        <div class="feedback-copy">
+          <span class="section-kicker">رأيك يهمنا</span>
+          <h2 id="feedback-title">شاركنا ملاحظاتك</h2>
+          <p>ساعدنا على تحسين تجربة الدليل الأكاديمي من خلال مشاركة رأيك.</p>
+        </div>
+        <form action="{{ url_for('feedback') }}" method="POST">
+          <textarea
+            name="message"
+            placeholder="اكتب رأيك هنا..."
+            required
+          ></textarea>
+          <button type="submit" class="butom1">
+            <i class="fa-solid fa-paper-plane"></i> إرسال
+          </button>
+        </form>
+      </section>
+    </main>
+    <footer class="results-footer">
+      <a href="{{ url_for('colleges_page') }}">استكشف دليل الكليات</a
+      ><span
+        >التوصيات إرشادية وتساعدك على الاستكشاف، ويُفضّل مراجعة شروط القبول
+        الرسمية لكل جامعة وتخصص.</span
+      ><a href="{{ url_for('home') }}">العودة للرئيسية</a>
+    </footer>
+  </body>
+</html>

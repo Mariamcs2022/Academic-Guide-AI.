@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>استكشاف الكليات | الدليل الأكاديمي</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='colleges.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/Online.png') }}"
+    />
+  </head>
+  <body>
+    <header class="page-header">
+      <a class="brand" href="{{ url_for('home') }}">الدليل الأكاديمي</a
+      ><a class="back-link" href="{{ url_for('home') }}">الرئيسية</a>
+    </header>
+    <main class="page-wrap">
+      <section class="page-intro">
+        <span>اكتشف خياراتك</span>
+        <h1>استكشف الكليات</h1>
+        <p>
+          تعرّف على المجالات الدراسية المختلفة، ثم افتح صفحة أي كلية للاطلاع على
+          نبذتها وتخصصاتها ومصادرها المتاحة.
+        </p>
+      </section>
+      <section class="college-grid" aria-label="قائمة الكليات">
+        {% for college in colleges %}
+        <article class="college-tile">
+          <img
+            src="{{ url_for('static', filename=college['image_path']) }}"
+            alt="{{ college['name'] }}"
+            loading="lazy"
+          />
+          <div class="tile-body">
+            <h2>{{ college['name'] }}</h2>
+            <p>{{ college['short_description'] }}</p>
+            <a
+              class="action-link"
+              href="{{ url_for('college_details', slug=college['slug']) }}"
+              >اكتشف الكلية <span aria-hidden="true">←</span></a
+            >
+          </div>
+        </article>
+        {% else %}
+        <p>لا توجد كليات متاحة حاليًا.</p>
+        {% endfor %}
+      </section>
+    </main>
+    <footer class="page-footer">
+      <a href="{{ url_for('home') }}">العودة إلى الصفحة الرئيسية</a>
+    </footer>
+  </body>
+</html>

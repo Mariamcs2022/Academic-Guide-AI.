@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الدليل الأكاديمي | اكتشف مستقبلك</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='projct2.css') }}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/Online.png') }}"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="flash-stack" role="status" aria-live="polite">
+      {% for category, message in messages %}
+      <div class="flash-message {{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+    <header id="header">
+      <nav class="nav1">
+        <a href="#Home">
+          <img
+            src="{{ url_for('static', filename='images/logolearn.jpg') }}"
+            alt="learing"
+            class="logo2"
+          />
+        </a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="فتح القائمة"
+          aria-expanded="false"
+          aria-controls="main-nav"
+        >
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+        <ul id="main-nav">
+          <li class="Hstyle"><a href="#Home">الرئيسية</a></li>
+          <li class="Hstyle">
+            <a href="{{ url_for('colleges_page') }}">استكشف الكليات</a>
+          </li>
+          <li class="Hstyle"><a href="#AboutUs">من نحن</a></li>
+          <li class="Hstyle"><a href="#About">نصيحتنا لك</a></li>
+          <li class="Hstyle"><a href="#contact">تواصل معنا</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- end header -->
+
+    <section id="Home">
+      <!--  start home-->
+      <div class="continer">
+        <div class="home11">
+          <div class="home1">
+            <h1>أهلًا بك في الدليل الأكاديمي لاختيار الكليات المناسبة لك</h1>
+            <p>
+              يهدف الاختبار إلى أن يكون بمثابة مرشد أكاديمي ذكي يوجّهك نحو
+              المجال الذي يناسب قدراتك وطموحاتك، حتى تتجنب الضياع بين التخصصات
+              وتبدأ طريقك بثقة ووضوح.
+            </p>
+            <div>
+              <a href="{{ url_for('informtion') }}" id="startBtn"
+                ><i class="fa-solid fa-star" aria-hidden="true"></i> ابدأ
+                الاختبار الآن</a
+              >
+            </div>
+          </div>
+          <img
+            src="{{ url_for('static' , filename ='images/fa361.webp') }}"
+            alt="طالب يستكشف خياراته التعليمية"
+            class="img"
+          />
+        </div>
+      </div>
+    </section>
+    <!-- end home-->
+
+    <section id="Beneficiaries">
+      <!--  start Beneficiaries -->
+      <div class="continer">
+        <div class="titles">
+          <h2>فوائد اختبار الدليل الأكاديمي</h2>
+        </div>
+        <div class="Bene1">
+          <div class="Beneficiaries1">
+            <img
+              src="{{ url_for('static' , filename ='images/lovepik.png') }}"
+              alt=""
+              class="img3"
+            />
+            <h2>يكتشف ميولك الحقيقية</h2>
+            <p>
+              يعرفك على المجالات التي تناسب قدراتك وطموحاتك، بعيدًا عن الحيرة
+              والتقليد
+            </p>
+          </div>
+          <div class="Beneficiaries1">
+            <img
+              src="{{ url_for('static' , filename ='images/teatchar2.jpg') }}"
+              alt=""
+              class="img3"
+            />
+            <h2>يزيد وعيك بنفسك</h2>
+            <p>
+              تتعرف على نقاط قوتك وأنماط تفكيرك وطريقتك الخاصة في التعلم والنجاح
+            </p>
+          </div>
+          <div class="Beneficiaries1">
+            <img
+              src="{{ url_for('static' , filename ='images/03.png') }}"
+              alt=""
+              class="img3"
+            />
+            <h2>يرسم لك خريطة طريق لمستقبلك الأكاديمي</h2>
+            <p>يوجهك للتخصصات المناسبة لك بناءً على شخصيتك</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end Beneficiaries -->
+
+    <section id="DiscoverColleges" class="discover-section">
+      <div class="continer">
+        <div class="discover-heading">
+          <span class="section-pill"
+            ><i class="fa-solid fa-compass" aria-hidden="true"></i> وسّع
+            خياراتك</span
+          >
+          <h2>اكتشف الكليات التي قد تناسبك</h2>
+          <p>
+            تعرّف على المجالات والتخصصات بصورة مبسطة، ثم افتح صفحة الكلية لمعرفة
+            المزيد ومراجعة المصادر الرسمية.
+          </p>
+        </div>
+        <div class="discover-grid">
+          {% for college in colleges[:3] %}
+          <article class="discover-card">
+            <div class="discover-image-wrap">
+              <img
+                src="{{ url_for('static', filename=college['image_path']) }}"
+                alt="{{ college['name'] }}"
+                loading="lazy"
+              /><span class="discover-number">0{{ loop.index }}</span>
+            </div>
+            <div class="discover-card-body">
+              <h3>{{ college['name'] }}</h3>
+              <p>{{ college['short_description'] }}</p>
+              <a
+                href="{{ url_for('college_details', slug=college['slug']) }}"
+                class="discover-link"
+                >اكتشف الكلية
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i
+              ></a>
+            </div>
+          </article>
+          {% else %}
+          <p>سيتم عرض الكليات هنا قريبًا.</p>
+          {% endfor %}
+        </div>
+        <div class="discover-actions">
+          <a class="discover-all" href="{{ url_for('colleges_page') }}"
+            >استكشف جميع الكليات
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="About">
+      <!--  start about-->
+      <div class="continer">
+        <div class="title">
+          <h1>نصيحتنا لك</h1>
+          <h4>عدد الطلاب الذين اجروا الاختبار</h4>
+          <h2 id="counter1">{{ visits}}</h2>
+        </div>
+        <div class="About1">
+          <div class="About2">
+            <img
+              src="{{ url_for('static' , filename ='images/online3.jpg') }}"
+              alt=""
+              class="img1"
+            />
+          </div>
+
+          <div class="about-con">
+            <h1>نحن ننصحك بإجراء اختبار الدليل الأكاديمي</h1>
+            <p class="text">
+              لتكوّن لنفسك خطة أولية واضحة عن مستقبلك الأكاديمي والمجالات التي
+              قد تناسبك. الاختبار يمنحك نظرة مبدئية على التخصصات التي تنسجم مع
+              شخصيتك، ويساعدك تكتشف مجالات جديدة قد لم تفكر بها من قبل
+            </p>
+
+            <p class="text">
+              سيكون هذا الاختبار خطوتك الأولى نحو مستقبلٍ تحفيزي ومشرق، يمنحك
+              الثقة لتبحث، وتكتشف، وتختار بحرية المجال الذي يناسبك فعلًا
+              وتمنياتنا لك بالتوفيق والسداد في رحلتك الأكاديمية والإبداعية 🎓✨
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end abute-->
+
+    <section id="AboutUs" class="about-us-section">
+      <div class="continer">
+        <div class="about-us-grid">
+          <div class="about-us-copy">
+            <span class="section-pill"
+              ><i class="fa-solid fa-heart" aria-hidden="true"></i> عن
+              الدليل</span
+            >
+            <h2>نساعدك على رؤية خياراتك بوضوح</h2>
+            <p>
+              الدليل الأكاديمي مساحة استكشافية تساعد الطالب على فهم ميوله
+              والتعرّف على مجالات دراسية متنوعة. صممنا التجربة لتكون بداية سهلة
+              ومنظمة قبل البحث عن البرامج ومتطلبات القبول.
+            </p>
+            <p>
+              نؤمن أن القرار الأفضل يبدأ بالسؤال والاستكشاف والمقارنة، ثم الرجوع
+              إلى المصادر الرسمية للجامعات قبل اتخاذ القرار النهائي.
+            </p>
+            <a href="{{ url_for('colleges_page') }}" class="discover-all"
+              >ابدأ باستكشاف الكليات
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i
+            ></a>
+          </div>
+          <div class="about-us-visuals">
+            <img
+              class="about-main-image"
+              src="{{ url_for('static', filename='images/team3.jpg') }}"
+              alt="طلاب يتعاونون في بيئة تعليمية"
+              loading="lazy"
+            />
+            <div class="about-image-note">
+              <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i
+              ><span
+                ><strong>استكشف، قارن، اختر</strong
+                ><small>خطوات أوضح نحو مستقبلك الأكاديمي</small></span
+              >
+            </div>
+            <img
+              class="about-small-image"
+              src="{{ url_for('static', filename='images/online3.jpg') }}"
+              alt="التعلم واستكشاف المعرفة"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img
+            src="{{ url_for('static', filename='images/logolearn.jpg') }}"
+            alt="شعار الدليل الأكاديمي"
+            class="logo2"
+          />
+          <div>
+            <h3>الدليل الأكاديمي</h3>
+            <p class="footer-desc">
+              مساحة استرشادية تساعدك على استكشاف المجالات الدراسية ومقارنة
+              الخيارات الأكاديمية.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>روابط مهمة</h4>
+          <ul>
+            <li>
+              <a
+                href="https://schools.madrasati.sa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >مدرستي</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://safeer2.moe.gov.sa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >سفير</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://noor.moe.gov.sa/Noor/EduWaveLanding/Home.aspx"
+                target="_blank"
+                rel="noopener noreferrer"
+                >نور</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.moe.gov.sa/ar/mediacenter/MOEnews/Pages/default.aspx"
+                target="_blank"
+                rel="noopener noreferrer"
+                >أخبار</a
+              >
+            </li>
+            <li><a href="#">قناة عين</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        <p>
+          &copy; 2026 <span class="muted">الدليل الأكاديمي</span>. محتوى
+          استرشادي.
+        </p>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='brt.js') }}"></script>
+    <!-- link js -->
+  </body>
+  <!-- end  body -->
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ college['name'] }} | الدليل الأكاديمي</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='colleges.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/Online.png') }}">
+</head>
+<body>
+<header class="page-header"><a class="brand" href="{{ url_for('home') }}">الدليل الأكاديمي</a><a class="back-link" href="{{ url_for('colleges_page') }}">جميع الكليات</a></header>
+<main class="page-wrap details-wrap">
+  <a class="text-back" href="{{ url_for('colleges_page') }}">← العودة إلى الكليات</a>
+  <section class="details-hero">
+    <img src="{{ url_for('static', filename=college['image_path']) }}" alt="{{ college['name'] }}">
+    <div><span class="details-kicker">دليل الكليات</span><h1>{{ college['name'] }}</h1><p>{{ college['description'] }}</p></div>
+  </section>
+  <section class="info-panel"><h2>التخصصات المرتبطة بالكلية</h2><p class="section-note">هذه قائمة تعريفية عامة، وقد تختلف أسماء البرامج والخطط الدراسية ومتطلبات القبول من جامعة إلى أخرى.</p>
+    <div class="major-list">{% for major in college['majors'] %}<span>{{ major }}</span>{% else %}<p>لم تُضف تخصصات لهذه الكلية بعد.</p>{% endfor %}</div>
+  </section>
+  <section class="info-panel">
+    <h2>مواد ومجالات تمهيدية</h2>
+    <p class="section-note">أمثلة عامة وليست خطة دراسية رسمية؛ راجع الخطة المنشورة من الجامعة المعنية.</p>
+    <div class="major-list">{% for subject in college['subjects'] %}<span>{{ subject }}</span>{% else %}<p>لم تُضف مواد تمهيدية بعد.</p>{% endfor %}</div>
+  </section>
+  <section class="info-panel"><h2>المصادر الرسمية</h2>
+    <p>لأن هذه الصفحة تعرض معلومات عامة ولا ترتبط بجامعة محددة، يُفضّل التحقق من تفاصيل البرامج والخطط الدراسية من الجهة التعليمية المعنية.</p>
+    {% if college['official_url'] %}<a class="action-link" href="{{ college['official_url'] }}" target="_blank" rel="noopener noreferrer">بوابة وزارة التعليم ↗</a>{% endif %}
+    {% if college['source_url'] %}<a class="source-link" href="{{ college['source_url'] }}" target="_blank" rel="noopener noreferrer">مصدر رسمي إضافي ↗</a>{% endif %}
+    {% if not college['official_url'] and not college['source_url'] %}<p class="source-pending">لم يُضف رابط رسمي محدد لهذه الكلية بعد. يمكن تعبئة حقلي official_url وsource_url في جدول colleges عند اختيار مصدر موثوق.</p>{% endif %}
+  </section>
+</main>
+<footer class="page-footer"><a href="{{ url_for('colleges_page') }}">تصفّح بقية الكليات</a></footer>
+</body></html>
